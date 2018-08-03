@@ -1,0 +1,50 @@
+{% set name = "ditto" %}
+{% set version = "0.1.0" %}
+{% set checksum = "85da0d0eec06ca4c624422473ad5bd99ae46b1981e66a225e7ac5aaf3d222182" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/NREL/ditto/archive/a6d5cacb30429cfb03d44c455d44d09d314dee4b.zip
+  sha256: {{ checksum }}
+
+build:
+  number: 0
+  script:
+      - python -m pip install OpenDSSDirect.py future networkx six traitlets json_tricks
+      - python -m pip install --no-deps --ignore-installed ".[all,test]"
+
+requirements:
+  host:
+    - python
+    - pip
+  run:
+    - python
+    - numpy >=1.13.0
+    - lxml
+    - pandas
+    - scipy
+    - XlsxWriter
+    - pandas
+    - xlrd
+    - click
+
+test:
+  imports:
+    - ditto
+
+about:
+  home: https://github.com/NREL/ditto
+  license: BSD
+  license_file: LICENSE
+  license_family: BSD
+  summary: 'Distribution Transformation Tool'
+  description: 'Distribution Transformation Tool'
+  doc_url: http://nrel.github.io/ditto/index.html
+  dev_url: http://nrel.github.io/ditto/index.html
+
+extra:
+  recipe-maintainers:
+    - kdheepak
